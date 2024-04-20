@@ -19,10 +19,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<RegisterResponse> registerUserWithRole(RegisterDto registerDto) {
+
+
         return Optional.empty();
     }
 
-    public void test(){
-        ResponseEntity<RegisterResponse> registerResponse = registerUserWithRole(null).map(ResponseEntity::ok).map(registerResponse -> ).orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null));
-    }
+
 }
