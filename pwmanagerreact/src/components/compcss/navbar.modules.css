@@ -20,6 +20,7 @@ body {
 
 .menu-container {
     top: 0;
+    right: 0;
     width: 5rem;
     height: 100vh;
     position: fixed;
@@ -74,3 +75,5 @@ body {
 .menu-container:hover .text {
     display: inline;
 }
+
+

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import './compcss/navbar.modules.css';
 import {FaFortAwesomeAlt} from "react-icons/fa";
@@ -28,7 +28,7 @@ const Navbar = () => {
                             <div className="text">Login</div>
                         </NavLink>
                     </li>
-                    <li>
+                    <li className="item">
                         <NavLink to="/register" className="link">
                             <FaRegEdit className="icon"/>
                             <div className="text">Registrieren</div>
