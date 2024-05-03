@@ -53,11 +53,15 @@ input:checked + .slider:before {
 .slider.rounded:before {
     border-radius: 50%;
 }
-.light-mode {
+
+body{
+    margin: 2rem;
+}
+/*.light-mode {
     background-color: white;
     color: black;
 }
 .dark-mode {
     background-color: #313131;
     color: white;
-}
+}*/

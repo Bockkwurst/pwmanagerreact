@@ -5,6 +5,7 @@ import NavBar from "./components/Navbar.jsx";
 import LoginForm from "./components/LoginForm.jsx";
 import Home from "./pages/Home.jsx";
 import ThemeSwitch from "./components/ThemeSwitch.jsx";
+import StartPage from "./pages/StartPage.jsx"
 
 export function App() {
 
@@ -12,21 +13,24 @@ export function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const handleToggle = () => {
-        setIsDarkMode(!isDarkMode)
+        const newMode = !isDarkMode;
+
+        setIsDarkMode(newMode);
+        setIsToggled(newMode)
     }
 
     return (
-            <BrowserRouter>
-                <div className={isDarkMode ? 'dark-mode' : 'light-mode' }>
+        <BrowserRouter>
+                <div className={isDarkMode ? 'dark-mode' : 'light-mode'}>
                     <NavBar/>
+                    {/*ThemeSwitch isToggled={isToggled} onToggle={() => setIsToggled(handleToggle)}/>*/}
                     <Routes>
                         <Route path="/login" element={<LoginForm/>}/>
-                        <Route path="/" element={<Home/>}/>
+                        <Route path="/" element={<StartPage/>}/>
 
                     </Routes>
-                    <ThemeSwitch isToggled={isToggled} onToggle={() => setIsToggled(handleToggle)} rounded={true}/>
                 </div>
-            </BrowserRouter>
+        </BrowserRouter>
     );
 }
 

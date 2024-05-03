@@ -1,7 +1,50 @@
+:root {
+  --clr-light: #fdffc4;
+  --clr-dark: #00332a;
+  --clr-primary: #dbffa2;
+  --clr-secondary: #c3fcf2;
+  --clr-accent: #ff7750;
+
+  --foreground: var(--clr-dark);
+  --background: var(--clr-light);
+
+  --ff-title: 'Roboto', sans-serif;
+  --ff-body: 'Roboto', sans-serif;
+}
+
+.light-mode{
+  --background: var(--clr-light);
+  --foreground: var(--clr-dark);
+}
+
+.dark-mode{
+  --background: var(--clr-dark);
+  --foreground: var(--clr-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: var(--clr-light);
+    --background: var(--clr-dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground: var(--clr-dark);
+    --background: var(--clr-light);
+  }
+}
+
 body{
   margin: 0;
   padding: 0;
+  background-image: url("/src/assets/layered-waves-haikei.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
+
 
 
 
