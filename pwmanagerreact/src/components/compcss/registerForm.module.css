@@ -1,19 +1,11 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.loginInner {
+.registerInner{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,7 +18,14 @@ body{
     width: 250px;
 }
 
-.loginTitle {
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerTitle {
     font-family: var(--primary-font), sans-serif;
     color: var(--clr-primary);
     text-decoration: underline;
@@ -35,11 +34,16 @@ body{
     text-shadow: var(--clr-shadow) 3px 3px 3px;
 }
 
-.loginForm {
-    margin: 5px;
+.registerFormContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.registerForm {
+    margin: 5px;
+    display: flex;
+
 }
 

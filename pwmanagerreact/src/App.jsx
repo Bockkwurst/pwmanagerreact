@@ -6,6 +6,7 @@ import LoginForm from "./components/LoginForm.jsx";
 import Home from "./pages/Home.jsx";
 import ThemeSwitch from "./components/ThemeSwitch.jsx";
 import StartPage from "./pages/StartPage.jsx"
+import RegisterForm from "./components/RegisterForm.jsx"
 
 export function App() {
 
@@ -26,6 +27,7 @@ export function App() {
                     {/*ThemeSwitch isToggled={isToggled} onToggle={() => setIsToggled(handleToggle)}/>*/}
                     <Routes>
                         <Route path="/login" element={<LoginForm/>}/>
+                        <Route path="/register" element={<RegisterForm/>}/>
                         <Route path="/" element={<StartPage/>}/>
 
                     </Routes>

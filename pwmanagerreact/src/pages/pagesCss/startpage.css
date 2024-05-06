@@ -1,7 +1,73 @@
+
+
+.start-page-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 40px;
+    font-family: var(--primary-font), sans-serif;
+    font-size: 30px;
+    font-weight: 700;
     font-style: italic;
     text-decoration: underline;
-    color: coral;
+    color: var(--clr-primary);
+    text-shadow: var(--clr-shadow) 3px 3px 3px;
 }
+
+.title-logo {
+    height: 40vh;
+    width: 40vw;
+}
+
+.description {
+    font-family: var(--secondary-font), sans-serif;
+    color: var(--clr-primary);
+    text-shadow: var(--clr-shadow) 3px 3px 3px;
+}
+
+.info-box {
+    overflow: scroll;
+    width: 85%;
+    border: black solid 1px ;
+    box-shadow: black 5px 5px 5px, silver 1px 1px 5px inset;
+    border-radius: 5px;
+    background-color: #1a2528;
+    max-height: 200px;
+    color: var(--tertiary-font-color);
+}
+
+.info-box-inner {
+    line-height: 20px;
+    word-wrap: break-word;
+    padding: 15px;
+    width: 100%;
+    font-family: var(--secondary-font), sans-serif;
+}
+
+.info-box::-webkit-scrollbar{
+    width: 10px;
+    height: 100%;
+}
+
+.info-box::-webkit-scrollbar-track{
+    background: #f1f1f1;
+}
+
+.info-box::-webkit-scrollbar-thumb{
+    background: #888;
+}
+
+.info-box::-webkit-scrollbar-thumb:hover{
+    background: #555;
+}
+
