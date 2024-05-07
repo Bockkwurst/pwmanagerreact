@@ -2,30 +2,31 @@ package com.example.pwmanager.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Value;
-import org.apache.catalina.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Service
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    @Value("${app.jwt.secret}")
-    private String secret;
-
-    @Value("${app.jwt.expiration}")
+    @org.springframework.beans.factory.annotation.Value("${app.jwt.ext}")
     private Long expiration;
 
-    public String generateToken(User user){
+
+    public String generateToken(UserDetails userDetails) throws NoSuchAlgorithmException {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);
 
+        String secret = SecretKeyGenerator.generateSecretKey(userDetails.getPassword());
         return Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 

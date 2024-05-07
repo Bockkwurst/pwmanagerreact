@@ -12,16 +12,17 @@ import java.util.Set;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table(name = "role_entity")
 public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
+    @Column(name = "is_admin")
     private boolean admin;
 
-    @NonNull
+    @Column(name = "is_user_role")
     private boolean user;
 
     @ManyToMany(

@@ -14,12 +14,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .authorizeRequests()
-                .securityMatchers(antMatchers("/register")).permitAll()
-                .anyRequest().authenticated()
-                .and()
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/register").permitAll()
+                        .anyRequest().authenticated())
                 .httpBasic();
+
         return http.build();
     }
 }
