@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from './compcss/button.module.css'
 
-const CustomButton = ({buttonText, buttonClass}) => {
+const CustomButton = ({buttonText, buttonClass, onClick}) => {
 
     return (
         <div className={styles.buttonContainer}>
-            <button className={styles.buttonClass}>
+            <button className={styles.buttonClass} onClick={onClick}>
                 <span></span>
                 {buttonText}
                 <span></span>

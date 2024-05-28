@@ -1,30 +1,8 @@
-@font-face {
-  font-family: 'pirulen';
-  src: url('src/assets/pirulen.otf');
-}
+@import "variables.css";
 
-@font-face {
-  font-family: 'glitch';
-  src: url('src/assets/Glitch.ttf');
-}
 
-:root {
-  --clr-light: #fdffc4;
-  --clr-dark: #00332a;
-  --clr-primary: #dbffa2;
-  --clr-secondary: #c3fcf2;
-  --clr-accent: #ff7750;
-  --clr-shadow: #1e1e1e;
 
-  --foreground: var(--clr-dark);
-  --background: var(--clr-light);
 
-  --primary-font: 'glitch';
-  --secondary-font: 'pirulen';
-  --primary-font-color: #ff4400;
-  --secondary-font-color: #fac468;
-  --tertiary-font-color: silver;
-}
 
 .light-mode{
   --background: var(--clr-light);

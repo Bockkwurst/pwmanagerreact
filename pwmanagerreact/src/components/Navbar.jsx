@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import './compcss/navbar.modules.css';
-import {FaFortAwesomeAlt} from "react-icons/fa";
-import {FaRegEdit} from "react-icons/fa";
+import {FaFortAwesomeAlt, FaRegEdit} from "react-icons/fa";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);

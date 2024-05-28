@@ -1,12 +1,8 @@
+@import "../../variables.css";
+
 body {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
-    --text-primary: hsl(187, 100%, 73%);
-    --text-secondary: hsl(185, 53%, 34%);
-    --bg-primary: hsl(194, 100%, 21%);
-    --bg-secondary: hsla(191, 100%, 12%, 0.68);
-    --transition-speed: 600ms;
-
 }
 .logo {
     width: 100%;

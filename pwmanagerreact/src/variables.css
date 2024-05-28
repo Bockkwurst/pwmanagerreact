@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'pirulen';
+    src: url('src/assets/pirulen.otf');
+}
+
+@font-face {
+    font-family: 'glitch';
+    src: url('src/assets/Glitch.ttf');
+}
+
+:root {
+    --clr-light: #fdffc4;
+    --clr-dark: #00332a;
+    --clr-primary: #dbffa2;
+    --clr-secondary: #c3fcf2;
+    --clr-accent: #ff7750;
+    --clr-shadow: #1e1e1e;
+
+    --foreground: var(--clr-dark);
+    --background: var(--clr-light);
+
+    --primary-font: 'glitch';
+    --secondary-font: 'pirulen';
+    --tertiary-font: 'Roboto', sans-serif;
+    --primary-font-color: #ff4400;
+    --secondary-font-color: #fac468;
+    --tertiary-font-color: silver;
+
+    --text-primary: hsl(187, 100%, 73%);
+    --text-secondary: hsl(185, 53%, 34%);
+    --bg-primary: hsl(194, 100%, 21%);
+    --bg-secondary: hsla(191, 100%, 12%, 0.68);
+    --transition-speed: 600ms;
+
+    --message-success: #00ff00;
+    --message-error: #ff0000;
+}

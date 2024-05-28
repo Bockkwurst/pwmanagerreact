@@ -6,9 +6,10 @@ import axios from "axios";
 
 const RegisterForm = () => {
 
-    const [password, setPassword] = useState("")
-    const [passwordMessage, setPasswortMessage] = useState("")
-    const [successMessage, setSuccessMessage] = useState({message: "", color: ""})
+    const [password, setPassword] = useState("");
+    const [passwordMessage, setPasswordMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState({message: "", color: ""});
+    const [successMessageColor, setSuccessMessageColor] = useState({color: ""});
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -20,16 +21,46 @@ const RegisterForm = () => {
     const [emailInputMade, setEmailInputMade] = useState(false);
     const [usernameInputMade, setUsernameInputMade] = useState(false);
     const [passwordInputMade, setPasswordInputMade] = useState(false);
+    const [confirmPasswordInputMade, setConfirmPasswordInputMade] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
     const setUsernameInputMadeDebounced = debounce(setUsernameInputMade, 1000);
     const setPasswordInputMadeDebounced = debounce(setPasswordInputMade, 1000);
+    const setConfirmPasswordInputMadeDebounced = debounce(setConfirmPasswordInputMade, 1000);
     const setEmailInputMadeDebounced = debounce(setEmailInputMade, 1000);
     const [message, setMessage] = useState('');
-    const [messageColor, setMessageColor] = useState('black');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const [messageColor, setMessageColor] = useState('green');
+    const emailRegex = /^[\s@]+@[^\s@]+\.[\s@]+$/;
 
+    useEffect(() => {
+        if (username) {
+            setUsernameInputMadeDebounced(true);
+            checkUsername();
+        }
+    }, [username])
+
+    useEffect(() => {
+        if (email) {
+            setEmailInputMadeDebounced(true);
+            checkEmail(email);
+        }
+    }, [email]);
+
+    useEffect(() => {
+        if (password && passwordConfirmation) {
+            checkPassword(password, passwordConfirmation);
+        }
+    }, [password, passwordConfirmation]);
+
+    useEffect(() => {
+        console.log(firstName);
+    }, [firstName]);
+
+    useEffect(() => {
+        console.log(lastName);
+    }, [lastName]);
 
     const generatePassword = () => {
+        event.preventDefault();
         const length = 12;
         const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-";
         let retVal = "";
@@ -37,31 +68,36 @@ const RegisterForm = () => {
             retVal += charset.charAt(Math.floor(Math.random() * n));
         }
         setPassword(retVal);
+        setPasswordConfirmation(retVal);
+        setPasswordMessage(`${retVal}`)
     };
+
+
 
     const handleRegister = async (event) => {
         event.preventDefault();
         if (!isPasswordValid) {
-            setMessage('Passwort entspricht nicht den Anforderungen');
-            setMessageColor('lightred');
+            setSuccessMessage('Passwort entspricht nicht den Anforderungen');
+            setSuccessMessageColor()('red');
             return;
         }
         if (password !== passwordConfirmation) {
-            setMessage('Passwörter stimmen nicht überein!');
-            setMessageColor('lightred');
+            setSuccessMessage('Passwörter stimmen nicht überein!');
+            setSuccessMessageColor('red');
             return;
         }
-        console.log(username, password, firstName, lastName, email);
+
+        console.log(username, firstName, lastName, email, password);
         try {
-            const response = await axios.post('http;//localhost:8091/register', {
-                username, password, firstName, lastName, email,
+            const response = await axios.post('http://localhost:8081/register', {
+                username, firstName, lastName, email, password
             });
             if (response.data.success) {
-                setMessage('Registrierung erfolgreich!');
-                setMessageColor('lightgreen');
+                setSuccessMessage('Registrierung erfolgreich!');
+                setSuccessMessageColor('green');
             } else {
-                setMessage('Registrierung fehlgeschlagen!');
-                setMessageColor('lightred');
+                setSuccessMessage('Registrierung fehlgeschlagen!');
+                setSuccessMessageColor('red');
             }
             setUsername('');
             setPassword('');
@@ -77,8 +113,8 @@ const RegisterForm = () => {
             setPasswordInputMade(false);
             setIsPasswordValid(true);
         } catch (error) {
-            setMessage('Registrierung fehlgeschlagen');
-            setMessageColor('lightred');
+            setSuccessMessage('Registrierung fehlgeschlagen');
+            setSuccessMessageColor('lightred');
         }
     };
 
@@ -91,79 +127,86 @@ const RegisterForm = () => {
             console.error(error);
         }
     }, 1000);
-    useEffect(() => {
-        if (username) {
-            setUsernameInputMade(true);
-            checkUsername();
-        }
-    }, [username])
 
-    const checkEmail = debounce(async() => {
-      try{
-          const response = await axios.get(`http://localhost:8081/check-email/${email}`);
-          console.log(response.data);
-          setIsEmailTaken(response.data.taken);
-      }catch (error){
-          console.error(error);
-      }
+
+
+    const checkEmail = debounce(async (email) => {
+        try {
+            const response = await axios.get(`http://localhost:8081/check-email/${email}`);
+            console.log(response.data);
+            setIsEmailTaken(response.data.taken);
+        } catch (error) {
+            console.error(error);
+        }
     }, 1000);
-    useEffect(() => {
-        if (email) {
-            setEmailInputMade(true);
-            checkEmail();
-        }
-    }, [email]);
 
-    const checkPassword = debounce((password) => {
+
+    const checkPassword = ((password, passwordConfirmation) => {
         if (password !== passwordConfirmation) {
-            setPasswordInputMade({made: true, color: "lightred"})
+            setPasswordInputMadeDebounced({made: true, color: "lightred"});
+            setConfirmPasswordInputMadeDebounced({made: true, color: "lightred"});
+            console.log('passwords do not match', password, passwordConfirmation);
             setDoPasswordsMatch(false);
         } else if (password.length < 8 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
-            setPasswordInputMade({made: true, color: "lightred"});
+            setPasswordInputMadeDebounced({made: true, color: "lightred"});
+            setConfirmPasswordInputMadeDebounced({made: true, color: "lightred"});
+            console.log('password does not meet requirements', password, passwordConfirmation);
             setIsPasswordValid(false);
         } else {
             setPasswordInputMade({made: true, color: "lightgreen"});
+            setConfirmPasswordInputMadeDebounced({made: true, color: "lightgreen"});
             setDoPasswordsMatch(true)
             setIsPasswordValid(true)
         }
-    }, 1000);
-    useEffect(() => {
-        if (password || passwordConfirmation){
-            checkPassword(password);
-        }
-    }, [password, passwordConfirmation]);
+    });
+
 
     return (
         <div className={styles.register}>
             <h1 className={styles.registerTitle}>Registrieren</h1>
             <div className={styles.registerInner}>
                 <form className={styles.registerFormContainer}>
-                    <input className={styles.registerForm} type="text" placeholder="Username"/>
-                    <input className={styles.registerForm} type="text" placeholder="Vorname"/>
-                    <input className={styles.registerForm} type="text" placeholder="Nachname"/>
+                    <input className={styles.registerForm} type="text" placeholder="Username"
+                           style={{backgroundColor: usernameInputMade ? (isUsernameTaken ? "lightred" : "lightgreen") : "white"}}
+                           onChange={e => {
+                               setUsername(e.target.value);
+                               checkUsername();
+                           }}/>
+                    <input className={styles.registerForm} type="text" placeholder="Vorname"
+                           onChange={e => {
+                               setFirstName(e.target.value);
+                           }}/>
+                    <input className={styles.registerForm} type="text" placeholder="Nachname"
+                           onChange={e => {
+                               setLastName(e.target.value);
+                           }}/>
                     <input className={styles.registerForm} type="text" placeholder="Email"
-                           style={{backgroundColor: emailInputMade.made ? emailInputMade.color : "white"}}
+                           style={{backgroundColor: emailInputMade ? (isEmailTaken ? "lightred" : "lightgreen") : "white"}}
                            onChange={e => {
                                setEmail(e.target.value);
                                checkEmail();
                            }}/>
                     <input className={styles.registerForm} type="password" placeholder="Passwort"
+                           value={password}
                            style={{backgroundColor: passwordInputMade.made ? passwordInputMade.color : "white"}}
                            onChange={e => {
-                               setPasswordConfirmation(e.target.value);
-                               checkPassword();
+                               setPassword(e.target.value);
+                               checkPassword(e.target.value, passwordConfirmation);
                            }}/>
                     <input className={styles.registerForm} type="password" placeholder="Passwort wiederholen"
-                           style={{backgroundColor: passwordInputMade.made ? passwordInputMade.color : "white"}}
+                           value={passwordConfirmation}
+                           style={{backgroundColor: confirmPasswordInputMade.made ? confirmPasswordInputMade.color : "white"}}
                            onChange={e => {
                                setPasswordConfirmation(e.target.value);
-                               checkPassword();
+                               checkPassword(password, e.target.value);
                            }}/>
-                    <CustomButton buttonText="Registrieren" buttonClass="registerButton"/>
+                    <CustomButton buttonText="Registrieren" buttonClass="registerButton"
+                                  onClick={handleRegister}/>
                     <CustomButton buttonText="Passwort generieren" buttonClass="randoBut#ton"
                                   onClick={generatePassword}/>
-                    <label className={styles.successLabel}>success</label>
-                    <label className={styles.passwordLabel}>password</label>
+                    <label className={styles.successLabel}
+                           style={{color: successMessageColor.color}}>{successMessage.message}</label>
+                    <label className={styles.passwordLabel}>{passwordMessage}</label>
                 </form>
             </div>
         </div>

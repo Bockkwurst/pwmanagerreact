@@ -1,7 +1,4 @@
-import React, {useState} from "react";
-import Axios from "axios";
-import NavBar from "../components/Navbar.jsx";
-import LoginForm from "../components/LoginForm.jsx";
+import React from "react";
 import "../index.css"
 
 function Home() {
