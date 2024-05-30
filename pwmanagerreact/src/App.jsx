@@ -5,12 +5,14 @@ import LoginForm from "./components/LoginForm.jsx";
 import StartPage from "./pages/StartPage.jsx"
 import RegisterForm from "./components/RegisterForm.jsx"
 import Home from "./pages/Home.jsx";
+import AuthProvider from "./utils/AuthProvider.jsx";
 
 export function App() {
 
 
     return (
-        <BrowserRouter>
+        <AuthProvider>
+            <BrowserRouter>
                 <div>
                     <NavBar/>
                     <Routes>
@@ -21,7 +23,8 @@ export function App() {
 
                     </Routes>
                 </div>
-        </BrowserRouter>
+            </BrowserRouter>
+        </AuthProvider>
     );
 }
 

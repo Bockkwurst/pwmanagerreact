@@ -34,7 +34,7 @@ public class LoginServiceImpl implements LoginService {
         UserEntity user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.generateToken(user);
 
-        LoginResponse loginResponse = new LoginResponse();
+        LoginResponse loginResponse = new LoginResponse(token);
         return Optional.of(loginResponse);
     }
 
