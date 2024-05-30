@@ -35,12 +35,39 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     height: 100%;
 
 }
 
 .item {
     width: 16rem;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    text-decoration: none;
+    color: palevioletred;
+    transition: var(--transition-speed);
+}
+
+.logout:hover {
+    background-color: var(--bg-secondary);
+    color: #ff2222;
+}
+
+
+.top-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.links-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .link {

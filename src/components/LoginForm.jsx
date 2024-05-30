@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import styles from './compcss/LoginForm.module.css';
 import CustomButton from "./CustomButton.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {useAuth} from "../utils/AuthProvider.jsx";
+import AuthProvider, {useAuth} from "../utils/AuthProvider.jsx";
 
 const LoginForm = () => {
 
@@ -15,6 +15,7 @@ const LoginForm = () => {
     const [error, setError] = useState('');
     const [buttonClicked, setButtonClicked] = useState(false);
     const [firstName, setFirstName] = useState('');
+
 
     const handleLogin = async () => {
         try {
